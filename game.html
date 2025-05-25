@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><title>Game Slot</title>
+<style>body{text-align:center;font-family:sans-serif;margin-top:50px;}#result{font-size:2em;margin:20px;}button{padding:10px 20px;}</style></head>
+<body>
+<h2>🎰 Slot Game</h2>
+<div id="result">[ ? ? ? ? ? ]</div>
+<div id="win"></div>
+<button onclick="spin()">SPIN</button>
+<script>
+async function spin() {
+  const r=await fetch('http://localhost:3000/spin',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+localStorage.getItem('token')},body:JSON.stringify({gameId:1})});
+  const d=await r.json();
+  document.getElementById('result').innerText=d.result;
+  document.getElementById('win').innerText="Menang: "+d.win;
+}
+</script></body></html>
